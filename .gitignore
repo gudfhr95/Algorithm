@@ -1,4 +1,5 @@
 .vscode
 *.dSYM
+.clang-format
 main*
 STDIN
