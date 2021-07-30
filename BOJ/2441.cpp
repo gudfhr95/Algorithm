@@ -9,6 +9,9 @@ int main() {
   string s;
   for (int i = N; i > 0; i--) {
     s = "";
+    for (int j = 0; j < N - i; j++) {
+      s += ' ';
+    }
     for (int j = 0; j < i; j++) {
       s += '*';
     }
