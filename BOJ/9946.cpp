@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -13,6 +12,9 @@ bool check(string a, string b) {
 
   for (int i = 0; i < a.length(); i++) {
     a_alphabet[a[i] - 'a']++;
+  }
+
+  for (int i = 0; i < b.length(); i++) {
     b_alphabet[b[i] - 'a']++;
   }
 
