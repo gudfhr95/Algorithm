@@ -1,60 +1,60 @@
 #include <iostream>
-#include <stack>
-#include <string>
-#include <vector>
 
 using namespace std;
 
-vector<string> split(string s, string delim) {
-  vector<string> result;
-  size_t prev = 0, cur;
-  string substring;
+struct Stack {
+  int data[10000];
+  int size;
 
-  cur = s.find(delim);
-  while (cur != string::npos) {
-    substring = s.substr(prev, cur - prev);
-    result.push_back(substring);
-    prev = cur + 1;
-    cur = s.find(delim, prev);
+  Stack() { size = 0; }
+
+  void push(int n) { data[size++] = n; }
+
+  int pop() {
+    if (size == 0) return -1;
+
+    return data[--size];
   }
-  substring = s.substr(prev, cur - prev);
-  result.push_back(substring);
 
-  return result;
-}
+  int empty() {
+    if (size == 0)
+      return 1;
+    else
+      return 0;
+  }
+
+  int top() {
+    if (size == 0) return -1;
+
+    return data[size - 1];
+  }
+};
 
 int main() {
-  int N;
-  string cmd;
-  vector<string> cmd_splited;
-  stack<int> stack;
+  int N, n;
+  string s;
+
+  Stack stack;
+
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
   cin >> N;
-  cin.ignore();
 
   while (N--) {
-    getline(cin, cmd);
-
-    cmd_splited = split(cmd, " ");
-
-    if (cmd_splited[0] == "push") {
-      stack.push(stoi(cmd_splited[1]));
-    } else if (cmd_splited[0] == "pop") {
-      if (stack.empty())
-        cout << -1 << '\n';
-      else {
-        cout << stack.top() << '\n';
-        stack.pop();
-      }
-    } else if (cmd_splited[0] == "size") {
-      cout << stack.size() << '\n';
-    } else if (cmd_splited[0] == "empty") {
-      cout << (int)stack.empty() << '\n';
-    } else if (cmd_splited[0] == "top") {
-      if (stack.empty())
-        cout << -1 << '\n';
-      else
-        cout << stack.top() << '\n';
+    cin >> s;
+    if (s == "push") {
+      cin >> n;
+      stack.push(n);
+    } else if (s == "pop") {
+      cout << stack.pop() << '\n';
+    } else if (s == "size") {
+      cout << stack.size << '\n';
+    } else if (s == "empty") {
+      cout << stack.empty() << '\n';
+    } else if (s == "top") {
+      cout << stack.top() << '\n';
     }
   }
 }
