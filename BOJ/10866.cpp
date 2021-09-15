@@ -1,74 +1,80 @@
-#include <deque>
 #include <iostream>
-#include <string>
-#include <vector>
 
 using namespace std;
 
-vector<string> split(string s, string delim) {
-  vector<string> result;
-  size_t prev = 0, cur;
-  string substring;
+struct Deque {
+  int begin, end;
+  int data[20000];
 
-  cur = s.find(delim);
-  while (cur != string::npos) {
-    substring = s.substr(prev, cur - prev);
-    result.push_back(substring);
-    prev = cur + 1;
-    cur = s.find(delim, prev);
+  Deque() {
+    begin = 10000;
+    end = 10000;
   }
-  substring = s.substr(prev, cur - prev);
-  result.push_back(substring);
 
-  return result;
-}
+  int size() { return end - begin; }
+
+  bool empty() { return (size() == 0) ? 1 : 0; }
+
+  void push_front(int n) { data[begin--] = n; }
+
+  void push_back(int n) { data[++end] = n; }
+
+  int pop_front() {
+    if (size() == 0) return -1;
+
+    return data[++begin];
+  }
+
+  int pop_back() {
+    if (size() == 0) return -1;
+
+    return data[end--];
+  }
+
+  int front() {
+    if (size() == 0) return -1;
+
+    return data[begin + 1];
+  }
+
+  int back() {
+    if (size() == 0) return -1;
+
+    return data[end];
+  }
+};
 
 int main() {
-  int N;
-  string cmd;
-  vector<string> cmd_splited;
-  deque<int> d;
+  int N, n;
+  string s;
+  Deque d;
+
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
   cin >> N;
-  cin.ignore();
 
   while (N--) {
-    getline(cin, cmd);
-
-    cmd_splited = split(cmd, " ");
-
-    if (cmd_splited[0] == "push_front") {
-      d.push_front(stoi(cmd_splited[1]));
-    } else if (cmd_splited[0] == "push_back") {
-      d.push_back(stoi(cmd_splited[1]));
-    } else if (cmd_splited[0] == "pop_front") {
-      if (d.empty())
-        cout << -1 << '\n';
-      else {
-        cout << d.front() << '\n';
-        d.pop_front();
-      }
-    } else if (cmd_splited[0] == "pop_back") {
-      if (d.empty())
-        cout << -1 << '\n';
-      else {
-        cout << d.back() << '\n';
-        d.pop_back();
-      }
-    } else if (cmd_splited[0] == "size") {
+    cin >> s;
+    if (s == "push_front") {
+      cin >> n;
+      d.push_front(n);
+    } else if (s == "push_back") {
+      cin >> n;
+      d.push_back(n);
+    } else if (s == "pop_front") {
+      cout << d.pop_front() << '\n';
+    } else if (s == "pop_back") {
+      cout << d.pop_back() << '\n';
+    } else if (s == "size") {
       cout << d.size() << '\n';
-    } else if (cmd_splited[0] == "empty") {
-      cout << (int)d.empty() << '\n';
-    } else if (cmd_splited[0] == "front") {
-      if (d.empty())
-        cout << -1 << '\n';
-      else
-        cout << d.front() << '\n';
-    } else if (cmd_splited[0] == "back") {
-      if (d.empty())
-        cout << -1 << '\n';
-      else
-        cout << d.back() << '\n';
+    } else if (s == "empty") {
+      cout << d.empty() << '\n';
+    } else if (s == "front") {
+      cout << d.front() << '\n';
+    } else if (s == "back") {
+      cout << d.back() << '\n';
     }
   }
 }

@@ -1,65 +1,63 @@
 #include <iostream>
-#include <queue>
-#include <string>
-#include <vector>
 
 using namespace std;
 
-vector<string> split(string s, string delim) {
-  vector<string> result;
-  size_t prev = 0, cur;
-  string substring;
+struct Queue {
+  int begin, end;
+  int data[10000];
 
-  cur = s.find(delim);
-  while (cur != string::npos) {
-    substring = s.substr(prev, cur - prev);
-    result.push_back(substring);
-    prev = cur + 1;
-    cur = s.find(delim, prev);
+  Queue() {
+    begin = 0;
+    end = 0;
   }
-  substring = s.substr(prev, cur - prev);
-  result.push_back(substring);
 
-  return result;
-}
+  int size() { return end - begin; }
+
+  bool empty() { return (size() == 0) ? 1 : 0; }
+
+  void push(int n) { data[end++] = n; }
+
+  int pop() {
+    if (empty()) return -1;
+
+    return data[begin++];
+  }
+
+  int front() {
+    if (empty()) return -1;
+
+    return data[begin];
+  }
+
+  int back() {
+    if (empty()) return -1;
+
+    return data[end - 1];
+  }
+};
 
 int main() {
-  int N;
-  string cmd;
-  vector<string> cmd_splited;
-  queue<int> q;
+  int N, n;
+  string s;
+  Queue q;
 
   cin >> N;
-  cin.ignore();
 
   while (N--) {
-    getline(cin, cmd);
-
-    cmd_splited = split(cmd, " ");
-
-    if (cmd_splited[0] == "push") {
-      q.push(stoi(cmd_splited[1]));
-    } else if (cmd_splited[0] == "pop") {
-      if (q.empty())
-        cout << -1 << '\n';
-      else {
-        cout << q.front() << '\n';
-        q.pop();
-      }
-    } else if (cmd_splited[0] == "size") {
+    cin >> s;
+    if (s == "push") {
+      cin >> n;
+      q.push(n);
+    } else if (s == "pop") {
+      cout << q.pop() << '\n';
+    } else if (s == "size") {
       cout << q.size() << '\n';
-    } else if (cmd_splited[0] == "empty") {
-      cout << (int)q.empty() << '\n';
-    } else if (cmd_splited[0] == "front") {
-      if (q.empty())
-        cout << -1 << '\n';
-      else
-        cout << q.front() << '\n';
-    } else if (cmd_splited[0] == "back") {
-      if (q.empty())
-        cout << -1 << '\n';
-      else
-        cout << q.back() << '\n';
+    } else if (s == "empty") {
+      cout << q.empty() << '\n';
+    } else if (s == "front") {
+      cout << q.front() << '\n';
+    } else if (s == "back") {
+      cout << q.back() << '\n';
     }
   }
 }
