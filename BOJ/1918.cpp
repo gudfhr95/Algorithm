@@ -3,8 +3,6 @@
 
 using namespace std;
 
-int numbers[26];
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
