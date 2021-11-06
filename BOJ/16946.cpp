@@ -62,18 +62,6 @@ int main() {
     }
   }
 
-  // for (int y = 0; y < N; y++) {
-  //   for (int x = 0; x < M; x++) {
-  //     cout << color[y][x] << ' ';
-  //   }
-  //   cout << '\n';
-  // }
-
-  // for (int i = 1; i < c; i++) {
-  //   cout << cnt[i] << ' ';
-  // }
-  // cout << '\n';
-
   int result[N][M];
   for (int y = 0; y < N; y++) {
     for (int x = 0; x < M; x++) {
