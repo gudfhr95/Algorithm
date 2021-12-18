@@ -82,22 +82,8 @@ int main() {
 
     if (v.size() != M) continue;
 
-    // for (const auto p : v) {
-    //   cout << p.first << ' ' << p.second << '\n';
-    // }
-    // return 0;
-
     memset(dist, -1, sizeof(dist));
     int res = bfs(v);
-    // cout << res << '\n';
-
-    // for (int y = 0; y < N; y++) {
-    //   for (int x = 0; x < N; x++) {
-    //     cout << dist[y][x] << ' ';
-    //   }
-    //   cout << '\n';
-    // }
-    // return 0;
 
     if (res == -1) continue;
 
